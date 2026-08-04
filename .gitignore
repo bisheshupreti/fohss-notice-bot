@@ -1,4 +1,20 @@
-requests
-beautifulsoup4
-PyMuPDF
-lxml
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+
+# Virtual Environment
+venv/
+.venv/
+env/
+
+# IDE
+.vscode/
+.idea/
+
+# Operating System
+.DS_Store
+Thumbs.db
+
+# Python cache
+.pytest_cache/

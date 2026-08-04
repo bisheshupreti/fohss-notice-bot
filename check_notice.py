@@ -105,9 +105,9 @@ def send_telegram_message(title, url):
     """Send a Telegram notification."""
 
     message = (
-        "🔔 *New BCA Notice Detected!*\n\n"
-        f"📌 *Title:*\n{title}\n\n"
-        f"🔗 *Notice:*\n{url}"
+        f"📌 *Title:*\n*{title}*\n\n"
+        f"🔗 *Notice:*\n{url}\n\n"
+        "🔔 `New BCA Notice Detected!`"
     )
 
     api_url = f"https://api.telegram.org/bot{BOT_TOKEN}/sendMessage"

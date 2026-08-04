@@ -1,0 +1,46 @@
+name: FOHSS Notice Bot
+
+on:
+  schedule:
+    # Every 15 minutes
+    - cron: "*/15 * * * *"
+
+  workflow_dispatch:
+
+jobs:
+  check-notices:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install Dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Run Bot
+        env:
+          BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
+          CHAT_ID: ${{ secrets.CHAT_ID }}
+        run: python check_notice.py
+
+      - name: Commit Updated last_notice.txt
+        run: |
+          git config --global user.name "github-actions"
+          git config --global user.email "github-actions@github.com"
+
+          git add last_notice.txt
+
+          if git diff --cached --quiet; then
+            echo "No changes."
+          else
+            git commit -m "Update processed notices"
+            git push
+          fi
